@@ -23,42 +23,6 @@ Specifically it:
 
 ---
 
-## Project Structure
-
-```
-exoplanet-lightcurves/
-│
-├── README.md
-├── logbook.md                          ← Research log documenting every decision
-│
-├── notebooks/
-│   ├── lightcurve_test.ipynb           ← Initial setup and library test
-│   ├── kepler10_analysis.ipynb         ← v1: Single star deep dive (Kepler-10)
-│   ├── v2_pipeline.ipynb               ← v2: Automated 50-star screening
-│   ├── v3_properties.ipynb             ← v3: Physical property calculations
-│   ├── v4_unified_pipeline.ipynb       ← v4: Independent verification pipeline
-│   └── v5_final_analysis.ipynb         ← v5: ESI scoring and final results
-│
-├── data/
-│   └── lk_cache/                       ← Cached Kepler downloads (auto-generated)
-│
-└── outputs/
-    ├── v2_candidates.csv
-    ├── v2_top10_folded.png
-    ├── v3_full_properties.csv
-    ├── v3_habitable_zone_candidates.csv
-    ├── v3_orbital_properties_v2.png
-    ├── v4_verified_candidates.csv
-    ├── v4_unverified.csv
-    ├── v4_best_candidate_*.png
-    ├── v5_ranked_candidates.csv
-    ├── v5_closest_hz_candidates.csv
-    ├── v5_rocky_candidates.csv
-    └── v5_final_figures.png
-```
-
----
-
 ## How the Pipeline Works
 
 ### v1 — Proving the concept (Kepler-10)
@@ -164,7 +128,3 @@ https://exoplanetarchive.ipac.caltech.edu/
 Going into this I knew I wanted to work with astronomical data, but I had never written Python before starting this project. Learning the language while building something I actually cared about made a significant difference — every new concept (Pandas, BLS, Kepler's Third Law in code) had an immediate application I could see working.
 
 The most surprising finding was that zero habitable zone candidates is actually the most scientifically interesting result. I expected to find some — the fact that the pipeline found none, and that the reason is explainable through detection geometry and stellar physics, is a more complete scientific story than a list of candidates would have been.
-
----
-
-*This project was developed as part of a STEM research portfolio targeting submission to the Calgary Youth Science Fair (CYSF) 2027.*
