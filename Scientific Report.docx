@@ -1,0 +1,30 @@
+1. Introduction
+
+The search for planets beyond our solar system — exoplanets — is one of the defining scientific endeavors of the 21st century. As of 2026, over 5,500 exoplanets have been confirmed, with thousands more candidates awaiting verification. Among the questions motivating this search, perhaps none is more compelling than whether Earth-like planets exist in the habitable zones of other stars — regions where liquid water could persist on a planetary surface and where life as we understand it might be possible.
+
+NASA's Kepler space telescope (2009–2018) revolutionized exoplanet science by monitoring the brightness of over 150,000 stars simultaneously, searching for the characteristic dimming that occurs when a planet passes in front of its host star. This technique, known as transit photometry, has produced the largest catalog of exoplanet candidates in history. However, detecting these signals reliably requires sophisticated algorithms capable of distinguishing genuine planetary transits from stellar variability, instrument noise, and eclipsing binary stars.
+
+This project addresses two related questions. First, can an independent automated pipeline reproduce NASA's planetary detections from raw Kepler photometric data? Second, what do the statistical properties of verified candidates reveal about the observational limitations of transit surveys?
+
+The pipeline developed here — spanning five progressive versions — moves from single-star proof of concept to a fully automated multi-star screening system with independent verification, physical property calculation, and Earth Similarity scoring.
+
+1.1 Background: Transit Photometry
+
+When a planet orbits a star and its orbital plane is approximately aligned with our line of sight, it periodically passes in front of the stellar disk as seen from Earth. During this transit, the planet blocks a small fraction of the star's light, causing a brief, periodic dimming in the observed brightness. The depth of this dimming is proportional to the ratio of the planet's area to the star's area:
+
+Transit depth = (R_planet / R_star)²
+
+The time between successive transits gives the orbital period directly. From the orbital period, Kepler's Third Law allows calculation of the planet's orbital distance from its host star. These relationships form the physical foundation of the entire detection pipeline.
+
+1.2 The Box Least Squares Algorithm
+
+The Box Least Squares (BLS) algorithm is the standard method for detecting periodic transit signals in photometric time series. BLS systematically tests thousands of possible orbital periods. For each candidate period, the algorithm folds the light curve — stacking all brightness measurements modulo that period — and searches for a consistent box-shaped dip indicative of a transit. The period that produces the strongest and most consistent box-shaped dimming is identified as the most likely orbital period.
+
+A key complication is that BLS sometimes identifies harmonics of the true period rather than the fundamental period itself. For example, if a planet has a true period of 3.0 days, BLS may detect 1.5 days (0.5x), 6.0 days (2x), or 9.0 days (3x) as equally valid solutions. This pipeline accounts for harmonic aliases by checking five common harmonic relationships (0.5x, 1.0x, 1.5x, 2.0x, 3.0x) during the cross-match step.
+
+1.3 Project Objectives
+Develop an automated Python pipeline for detecting exoplanet transit signals from raw Kepler photometric data
+Independently verify detections by cross-matching against the NASA Exoplanet Archive KOI catalog
+Calculate physical properties (orbital distance, habitable zone, planet radius, planet type) for all verified candidates
+Apply Earth Similarity Index scoring to rank candidates by Earth-likeness
+Quantify the observational selection biases inherent to the Kepler transit detection method
